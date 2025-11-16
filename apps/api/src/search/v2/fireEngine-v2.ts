@@ -68,7 +68,9 @@ export async function fire_engine_search_v2(
   const url = `${process.env.FIRE_ENGINE_BETA_URL}/v2/search`;
   const data = JSON.stringify(payload);
 
-  if (options.retry) {
+  const retry = options.retry ?? true;
+
+  if (retry) {
     const result = await executeWithRetry<SearchV2Response>(
       () => attemptRequest<SearchV2Response>(url, data, abort),
       (response): response is SearchV2Response =>
@@ -79,7 +81,7 @@ export async function fire_engine_search_v2(
     return result ?? {};
   }
 
-  const result = await attemptRequest<SearchV2Response>(url, data, abort);  
-  
+  const result = await attemptRequest<SearchV2Response>(url, data, abort);
+
   return result ?? {};
 }

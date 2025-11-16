@@ -20,7 +20,7 @@ export async function search({
   sleep_interval = 0,
   timeout = 5000,
   type = undefined,
-  retry = true,
+  retry = undefined,
 }: {
   query: string;
   logger: Logger;
